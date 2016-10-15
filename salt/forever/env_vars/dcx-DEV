@@ -1,0 +1,2 @@
+export NODE_ENV=development
+export NODE_CONFIG_DIR=/opt/www/dcx-signon/dist/config

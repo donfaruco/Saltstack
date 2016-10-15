@@ -1,0 +1,38 @@
+#!/bin/bash
+# chkconfig: 345 88 08
+# description: Forever for Node.js
+
+source /etc/default/dcx
+DEAMON=/opt/www/dcx-signon/dist/bin/www
+LOG=/var/log/forever-www.log
+PID=/var/run/forever-www.pid
+
+export PATH=$PATH:/usr/bin/node
+export NODE_PATH=$NODE_PATH:/usr/lib/node_modules/
+
+foreverwww=/usr/bin/forever
+
+case "$1" in
+    start)
+        $foreverwww start -l $LOG --pidFile $PID -a $DEAMON
+        ;;
+    stop)
+        $foreverwww stop --pidFile $PID $DEAMON
+        ;;
+    stopall)
+        $foreverwww stopall --pidFile $PID
+        ;;
+    restartall)
+        $foreverwww restartall --pidFile $PID
+        ;;
+    reload|restart)
+        $foreverwww restart -l $LOG --pidFile $PID -a $DEAMON
+        ;;
+    list)
+        $foreverwww list
+        ;;
+    *)
+        echo "Usage: /etc/init.d/forever-www {start|stop|restart|reload|stopall|restartall|list}"
+        exit 1
+        ;;
+esac

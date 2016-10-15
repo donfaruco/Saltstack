@@ -1,0 +1,38 @@
+#!/bin/bash
+# chkconfig: 345 88 08
+# description: Forever for Node.js
+
+source /etc/default/dcx
+DEAMON=/opt/www/dcx-signon/dist/_client/server.js
+LOG=/var/log/forever-client.log
+PID=/var/run/forever-client.pid
+
+export PATH=$PATH:/usr/local/bin/node
+export NODE_PATH=$NODE_PATH:/usr/lib/node_modules/
+
+foreverclient=/usr/bin/forever
+
+case "$1" in
+    start)
+        $foreverclient start -l $LOG --pidFile $PID -a $DEAMON
+        ;;
+    stop)
+        $foreverclient stop --pidFile $PID $DEAMON
+        ;;
+    stopall)
+        $foreverclient stopall --pidFile $PID
+        ;;
+    restartall)
+        $foreverclient restartall --pidFile $PID
+        ;;
+    reload|restart)
+        $foreverclient restart -l $LOG --pidFile $PID -a $DEAMON
+        ;;
+    list)
+        $foreverclient list
+        ;;
+    *)
+        echo "Usage: /etc/init.d/forever-client {start|stop|restart|reload|stopall|restartall|list}"
+        exit 1
+        ;;
+esac
