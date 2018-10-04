@@ -1,7 +1,7 @@
 {%- set env = grains['ep_env']  -%}
 server {
     listen    80;
-    server_name dcx-{{ env.lower() }}.ep.com;
+    server_name dcx-{{ env.lower() }}.personal.com;
 
     location  / {
         try_files $uri @proxy;
@@ -20,7 +20,7 @@ server {
 
 server {
     listen    8080;
-    server_name dcx-{{ env.lower() }}.ep.com;
+    server_name dcx-{{ env.lower() }}.personal.com;
 
     location  / {
         try_files $uri @proxy;
